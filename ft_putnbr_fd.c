@@ -1,32 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_substr.c                                        :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mlima-si <mlima-si@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/11 16:34:16 by mlima-si          #+#    #+#             */
-/*   Updated: 2025/04/20 17:10:52 by mlima-si         ###   ########.fr       */
+/*   Created: 2025/04/20 12:02:50 by mlima-si          #+#    #+#             */
+/*   Updated: 2025/04/20 12:30:09 by mlima-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+void	ft_putnbr_fd(int n, int fd)
 {
-	char	*subs;
+	int	number;
 
-	if (!s)
-		return (0);
-	if (ft_strlen(s) < start)
-		return (ft_strdup(""));
-	if (ft_strlen(s + start) < len)
-		len = ft_strlen(s + start);
-	subs = malloc((len + 1) * sizeof(char));
-	if (subs)
+	if (n == -2147483648)
 	{
-		ft_strlcpy(subs, s + start, len + 1);
-		return (subs);
+		write(fd, "-2147483648", 11);
+		return ;
 	}
-	return (NULL);
+	if (n < 0)
+	{
+		write(fd, "-", 1);
+		n *= -1;
+	}
+	if (n > 9)
+	{
+		ft_putnbr_fd(n / 10, fd);
+	}
+	number = ((n % 10) + '0');
+	write(fd, &number, 1);
 }
