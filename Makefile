@@ -5,26 +5,35 @@ SOURCES =	ft_isalpha.c	ft_isdigit.c	ft_isalnum.c	ft_isascii.c	ft_isprint.c	ft_st
 			ft_memcmp.c		ft_strnstr.c	ft_atoi.c		ft_calloc.c		ft_strdup.c		ft_substr.c		ft_strjoin.c	ft_strtrim.c	ft_itoa.c\
 			ft_strmapi.c	ft_striteri.c	ft_putchar_fd.c	ft_putstr_fd.c	ft_putendl_fd.c	ft_putnbr_fd.c	ft_split.c\
 
-OBJECTS = $(SOURCES:.c=.o)
-
-CC = cc
-
-RM += rm -f
+BNS_SOURCES = ft_lstnew.c	ft_lstadd_front.c	ft_lstsize.c	ft_lstlast.c	ft_lstadd_back.c	ft_lstdelone.c	ft_lstclear.c	ft_lstiter.c	ft_lstmap.c\
 
 FLAGS += -Wall -Werror -Wextra
 
+CC = cc
+
+OBJECTS = $(SOURCES:.c=.o)
+
+BNS_OBJECTS = $(BNS_SOURCES:.c=.o)
+
+RM += rm -f
+
 all:	$(NAME)
+
+.c.o:
+	${CC} ${FLAGS} -c  $< -o ${<:.c=.o}
 
 $(NAME):	$(OBJECTS)
 			ar -r $(NAME) $(OBJECTS) 
-%.o:	%.c
-	$(CC) $(FLAGS) -c $^ -o $@
+
+bonus:	$(BNS_OBJECTS) $(NAME)
+			ar -r $(NAME) $(BNS_OBJECTS)
+
 clean: 
-	$(RM) $(OBJECTS)
+	$(RM) $(OBJECTS) $(BNS_OBJECTS)
 
 fclean:	clean
 	$(RM) $(NAME)
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all bonus clean fclean re

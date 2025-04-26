@@ -1,35 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strnstr.c                                       :+:      :+:    :+:   */
+/*   ft_lstclear.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mlima-si <mlima-si@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/11 14:40:43 by mlima-si          #+#    #+#             */
-/*   Updated: 2025/04/22 16:43:38 by mlima-si         ###   ########.fr       */
+/*   Created: 2025/04/23 12:07:34 by mlima-si          #+#    #+#             */
+/*   Updated: 2025/04/23 12:25:08 by mlima-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strnstr(const char *big, const char *little, size_t len)
+void	ft_lstclear(t_list **lst, void (*del)(void*))
 {
-	size_t	i;
-	size_t	j;
+	t_list	*list_a;
+	t_list	*list_n;
 
-	i = 0;
-	if (!little[i])
-		return ((char *)big);
-	if (len == 0)
-		return (NULL);
-	while (i < (len) && big[i])
+	list_a = *lst;
+	while (list_a)
 	{
-		j = 0;
-		while (little[j] == big[i + j] && i + j < (len) && little[j])
-			j++;
-		if (!(little[j]))
-			return ((char *)&big[i]);
-		i++;
+		list_n = list_a->next;
+		ft_lstdelone(list_a, del);
+		list_a = list_n;
 	}
-	return (NULL);
+	*lst = NULL;
 }

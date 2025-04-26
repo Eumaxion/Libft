@@ -1,35 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strnstr.c                                       :+:      :+:    :+:   */
+/*   ft_lstiter.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mlima-si <mlima-si@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/11 14:40:43 by mlima-si          #+#    #+#             */
-/*   Updated: 2025/04/22 16:43:38 by mlima-si         ###   ########.fr       */
+/*   Created: 2025/04/23 12:26:36 by mlima-si          #+#    #+#             */
+/*   Updated: 2025/04/23 12:38:09 by mlima-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strnstr(const char *big, const char *little, size_t len)
+void	ft_lstiter(t_list *lst, void (*f)(void *))
 {
-	size_t	i;
-	size_t	j;
-
-	i = 0;
-	if (!little[i])
-		return ((char *)big);
-	if (len == 0)
-		return (NULL);
-	while (i < (len) && big[i])
+	if (lst && f)
 	{
-		j = 0;
-		while (little[j] == big[i + j] && i + j < (len) && little[j])
-			j++;
-		if (!(little[j]))
-			return ((char *)&big[i]);
-		i++;
+		while (lst->next)
+		{
+			f(lst->content);
+			lst = lst->next;
+		}
+		f(lst->content);
 	}
-	return (NULL);
 }
