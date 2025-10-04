@@ -11,7 +11,7 @@ In the bonus part, I had my first experience working with linked lists, learning
 Clone the repository:  
 
 ```  
-git clone https://github.com/yourusername/libft.git  
+git clone https://github.com/Eumaxion/libft.git  
 cd libft  
 ```
 
